@@ -1,9 +1,35 @@
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Users from "../assets/people-community.png";
 import MessageSquare from "../assets/comment.png";
 import Briefcase from "../assets/business-center.png";
 import Megaphone from "../assets/announcement.png";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function StatisticsSection() {
+  const statsRef = useRef([]);
+
+  useEffect(() => {
+    gsap.fromTo(
+      statsRef.current,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: statsRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   const stats = [
     {
       icon: Users,
@@ -22,13 +48,13 @@ export default function StatisticsSection() {
     },
     {
       icon: Megaphone,
-      number: "1000+",
-      label: "Product Fanbase",
+      number: "10+",
+      label: "Announcements",
     },
   ];
 
   return (
-    <section className="relative w-auto mx-8 md:mx-16 py-1 md:py-2">
+    <section className="relative w-auto mx-8 md:mx-16 py-1 md:py-2" ref={statsRef}>
       
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[rgba(23,53,68,0.39)] to-[#05425F] rounded-3xl" />
@@ -44,6 +70,7 @@ export default function StatisticsSection() {
             <div
               key={index}
               className="flex flex-col items-center justify-top p-4 sm:p-6 transition-transform hover:scale-105"
+              ref={(el) => (statsRef.current[index] = el)}
             >
               <img
                 src={stat.icon}

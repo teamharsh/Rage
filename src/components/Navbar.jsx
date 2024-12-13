@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { gsap } from "gsap";
 import Logo from "../assets/rages-logo.svg";
 
 export default function Navbar() {
@@ -16,6 +17,19 @@ export default function Navbar() {
     { href: "/contact", label: "Contact" },
   ];
 
+  useEffect(() => {
+    gsap.from(".nav-link", { duration: 1, y: -20, opacity: 0, stagger: 0.2 });
+  }, []);
+  useEffect(() => {
+    gsap.to(".nav-link", { duration: 1, y: 0, opacity: 1, stagger: 0.2 });
+  }, []);
+  useEffect(() => {
+    gsap.from(".logo", { duration: 1, y: -20, opacity: 0 });
+  }, []);
+  useEffect(() => {
+    gsap.to(".logo", { duration: 1, y: 0, opacity: 1 });
+  }, []);
+
   return (
     <div className="relative bg-black">
       <div className="absolute opacity-75" />
@@ -24,7 +38,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <a href="/" className="flex items-center space-x-2">
-              <img src={Logo} alt="Logo" className="h-16 w-auto" />
+              <img src={Logo} alt="Logo" className="logo h-16 w-auto" />
             </a>
           </div>
 
@@ -34,7 +48,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-lg font-semibold transition-colors ${
+                className={`nav-link text-lg font-semibold transition-colors ${
                   location.pathname === link.href
                     ? "text-red-500"
                     : "text-white hover:text-gray-300"
@@ -78,7 +92,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  className={`nav-link block px-3 py-2 rounded-md text-base font-medium ${
                     location.pathname === link.href
                       ? "text-red-500"
                       : "text-white hover:text-gray-300"
