@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { gsap } from 'gsap';
-import image from '../assets/Rages-footer.png';
+import image from '../assets/rages-footer.png';
 
 const Footer = () => {
   const footerRef = useRef(null);
