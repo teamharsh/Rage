@@ -31,7 +31,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="relative bg-black">
+    <div className="relative">
       <div className="absolute opacity-75" />
       <nav className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
